@@ -1,0 +1,139 @@
+html{
+    font-size: 12px;
+}
+
+@keyframes emerge {
+    from{
+        opacity: 0;
+    }to{
+        opacity: 1;
+    }
+    
+}
+
+@keyframes translation{
+    from{
+        translate:15px
+    }to {
+        translate: 0px;
+    }
+}
+
+body{
+    color: white;
+    margin:50px;
+
+  background-image: url("25544.jpg");
+  background-repeat: no-repeat; 
+  background-size: cover; /* Make the image cover the entire area */
+  background-position: center center; 
+  background-attachment: fixed;
+  transition: background-image 1s ease-in;
+  animation: 1.5s ease-in 1 emerge;
+}
+    
+
+*{
+    font-family: cursive;
+}
+
+*::selection{
+    background-color: rgba(0, 128, 0, 0.91);
+
+}
+h1{
+    font-size: 2.6rem;
+    font-family: system-ui;
+    text-decoration: underline 3px rgb(227, 218, 218);
+    font-style: oblique;
+    /* text-align: center; */
+
+}
+.main1{
+    animation: 0.7s ease-in 1 translation;
+    /* background-color: rgba(174, 231, 231, 0.15); */
+    min-height: 100vh;
+    width:60vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* box-shadow: 5px 5px 10px rgba(58, 165, 207, 0.511); */
+    font-size: xx-large;
+    margin: auto;
+    padding: 20px;
+}
+.subject{
+    background-color: rgba(162, 148, 250, 0.533);
+    width: 80%;
+    /* min-width: max-content; */
+    max-width: 100%;
+    font-size: clamp(1rem,1.5vw,3.5vw);
+    border: 2px rgb(32, 9, 238) groove;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 10px;
+    height: 100px;
+    display: flex;
+    /* align-content: center; */
+    flex-direction: row;
+    justify-content: center;
+    justify-items: start;
+    align-items: center;
+    align-self: flex-start;
+    justify-self: center;
+    
+
+}
+.subject:hover{
+    box-shadow: 5px 5px 5px  rgba(67, 67, 214, 0.664);
+    translate: 10px;
+    scale: 1.01;
+    transition: all 0.15s ease-in-out;
+}
+.indi{
+    
+    min-width: 10%;
+    max-width: 50%;
+    margin: 5px;
+    padding: auto;
+    /* align-self: flex-start; */
+    justify-self:flex-start;
+}
+button{
+    background-color: rgba(243, 165, 170, 0.956);
+    width: fit-content;
+    height: max-content;
+    border-radius: 5px;
+    border: 2px black solid;
+}
+.easy{
+    background-color: rgba(140, 210, 140, 0.704);
+}
+.med{
+    background-color: rgba(249, 144, 165, 0.684);
+}
+.hard{
+    background-color: rgba(231, 90, 90, 0.696);
+}
+.easy:hover{
+    background-color:rgba(140, 210, 140, 0.9) ;
+}
+.med:hover{
+    background-color: rgba(249, 144, 165, 0.9);
+}
+.hard:hover{
+    background-color: rgba(231, 90, 90, 0.9);
+    
+}
+
+.easy:active{
+    background-color:rgba(64, 159, 64, 0.801) ;
+}
+.med:active{
+    background-color: rgb(234, 116, 139);
+}
+.hard:active{
+    background-color: rgb(214, 67, 67);
+}

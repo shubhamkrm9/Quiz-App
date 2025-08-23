@@ -1,0 +1,113 @@
+@keyframes emerge {
+    from{
+        opacity: 0;
+    }to{
+        opacity: 1;
+    }
+    
+}
+@keyframes translation{
+    from{
+        translate:20px
+    }to {
+        translate: 0px;
+    }
+}
+h1{
+    animation: 1s ease-in 1 emerge;
+    text-align: center;
+}
+body{
+    color: white;
+    margin:50px;
+
+  background-image: url("25544.jpg");
+  background-repeat: no-repeat; 
+  background-size: cover;
+  background-position: center center; 
+  background-attachment: fixed;
+  transition: background-image 1s ease-in;
+  animation: 1.5s ease-in 1 emerge;
+}
+*{
+    font-family: cursive;
+}
+*::selection{
+    background-color: rgba(0, 128, 0, 0.91);
+}
+
+.main{
+    /* animation: 1s ease-in 1 translation; */
+    border-radius: 10px;
+    background-color: rgba(174, 231, 231, 0.15);
+    min-height: 80vh;
+    width:60vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    /* box-shadow: 5px 5px 10px rgba(58, 165, 207, 0.511); */
+    font-size: 1.5rem;
+    margin: auto;
+    padding: 20px;
+    
+}
+.q{
+    animation: 1s ease-in 1 emerge;
+    align-self: flex-start;
+    justify-self: start;
+    padding: 20px;
+}
+.options{
+    animation: 1s ease-in 1 emerge;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+.individual_option{
+    padding:10px
+}
+.buttons{
+    display: flex;
+    flex-direction: row-reverse;
+    margin:10px;
+}
+.button{
+    padding: 2px;
+    margin:10px;
+    min-width: 10vh;
+    min-height: 5vh;
+    border-radius: 5px;
+    border: 2px black solid;
+}
+#next,#prev{
+    background-color: rgba(59, 59, 246, 0.629);
+    color: white;
+    
+}
+#submit{
+    background-color: rgba(50, 231, 50, 0.849);
+
+}
+#submit:hover{
+    background-color: rgb(3, 147, 3);
+}
+#submit:active{
+    background-color: rgb(13, 218, 229);
+}
+#next:hover,#prev:hover{
+    background-color: rgba(43, 43, 250, 0.962);
+    transition:background-color .3s ease-in;
+}   
+#next:active,#prev:active{
+    background-color: rgb(152, 35, 126);
+    transition: all 0s ease-in;
+}
+.addeffect{
+    animation: 1s ease-in 1 emerge;
+}
+.remove_apperance{
+    display: none;
+}
+.translation{
+    animation: 1s ease-in 1 translation;
+}
