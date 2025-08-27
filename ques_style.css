@@ -111,3 +111,14 @@ body{
 .translation{
     animation: 1s ease-in 1 translation;
 }
+@media(max-width:500px){
+    .buttons{
+        flex-direction: column-reverse;
+    }
+    .main{
+        font-size: 5vw;
+    }
+    h1{
+        font-size: 8vw;
+    }
+}
