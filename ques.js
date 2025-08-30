@@ -1,20 +1,14 @@
-let url="https://opentdb.com/api.php?amount=10&type=multiple&difficulty=medium&category=17";
 let questions=[];
 let ques_arr=[];
 let options=[];
-let amount=10;
-let correct_ans=[];
 let input_ans=[];
-for(let i=0;i<amount;i++){
-    input_ans.push(null);
-}
+// for(let i=0;i<amount;i++){
+//     input_ans.push(null);
+// }
 let main_div=document.querySelector(".main");
-
-let category=17;
+let correct_ans=[];
 let h1=document.querySelector("#q_head");
 let score=0;
-let difficulty;
-let type='multiple';
 let q=document.querySelector("p");
 let next_button=document.querySelector("#next");
 let submit_button=document.querySelector("#submit");
@@ -30,48 +24,49 @@ for (let i = 0; i < individual_option.length; i++) {
   individual_option[i].appendChild(inp);
   individual_option[i].appendChild(label);
 }
-let inp=document.querySelectorAll("input");
-let label=document.querySelectorAll("label");
-let start_button=document.querySelectorAll(".indi");
-let easy_button=document.querySelectorAll(".easy");
-let med_button=document.querySelectorAll(".med");
-let hard_button=document.querySelectorAll(".hard");
-let fetching_status=false;
 
 let m=0;
+
+let inp=document.querySelectorAll("input");
+let label=document.querySelectorAll("label");
+let fetching_status=false;
 async function getq(url) {
     try{
-        let config={headers:{amount:10,category:17}}
+        // let config={headers:{amount:10,category:17}}
         let res=await axios.get(url);
+        // let res=await fetch(url);
+        console.log("Res=",res);
         // console.log(res.data.results);
         return res.data.results;
     }catch(e){
          console.log("Failed to fetch data... ");
+         console.log("Error=",e);
     }
     
 }
+let apiUrl;
+let amount;
+document.addEventListener("DOMContentLoaded", () => {
+   
+    const urlParams = new URLSearchParams(window.location.search);
+    amount = urlParams.get('amount');
+    const category = urlParams.get('category');
+    const difficulty = urlParams.get('difficulty');
+    
+    if (!amount || !category || !difficulty) {
+        q.innerText = "Error: Could not load quiz settings. Please go back and try again.";
+        return;
+    }
+    apiUrl = `https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}&type=multiple`;
+    console.log("Fetching from API URL:", apiUrl);
 
-start_button.forEach(el=>{
-    el.addEventListener("click",()=>{
-        console.log(" Easy Button was clicked...");
-        // let num=prompt("Enter Number of Question(Max=50):");
-        let num=10;
-        if (num>50){
-            alert("Enter number less than 50");
-        }else{
-            // url.replace("medium","easy");
-            url.replace("medium","easy");
-            console.log("API url=",url);
-            let q_page="ques.html";
-            window.open(q_page,"_blank");
-        }
-        
-    })
-})
-
-getq(url).then((result)=>{
+    for (let i = 0; i < amount; i++) {
+        input_ans.push(null);
+    }
+    getq(apiUrl).then((result)=>{
     fetching_status=true;
     console.log(" Data fetched successfully...");
+    console.log("Result by Prmise=",result);
     // console.log(result);
     for (let i=0;i<result.length;i++){
         questions.push(result[i]);
@@ -87,36 +82,8 @@ getq(url).then((result)=>{
 
     // }
 
-
-    function disp_ques(m){
-        h1.innerText=`Question ${m+1}`;
-        
-        if (m==0){
-            prev_button.classList.add("remove_apperance");
-        }else{
-            prev_button.classList.remove("remove_apperance");
-        }
-        if (m>amount-2){
-            next_button.classList.add("remove_apperance");
-        }else{
-            next_button.classList.remove("remove_apperance");
-        }
-        q.classList.add("addeffect");
-        option_el.classList.add("addeffect");
-        main_div.classList.add("translation");
-        setTimeout(()=>{
-            q.classList.remove("addeffect");
-            option_el.classList.remove("addeffect");
-            main_div.classList.remove("translation");
-        },1000)
-        q.innerHTML=`Q. ${ques_arr[m]}`;
-        for(let k=0;k<4;k++){
-            label[k].setAttribute("for",options[m][k]);
-            inp[k].setAttribute("id",options[m][k]);
-            label[k].innerHTML=`${k+1}-${options[m][k]}`;
-            inp[k].setAttribute("value",options[m][k]);
-        }
-    }
+    
+    
     disp_ques(m);
 
     function calculate_score(){
@@ -173,6 +140,11 @@ getq(url).then((result)=>{
     q.innerText="Questions are not available !  Please Try again Later...";
     console.log("Error Fetching data...",err);
 })
+    // 3. Call the API with the correct URL
+    // getq(apiUrl); 
+    
+});
+
 
 function show_result(){
     let num_correct=score;
@@ -184,9 +156,9 @@ function show_result(){
         }
     }
     let num_incorrect=input_ans.length-score-num_unattempted;
-    q.innerHTML=`Got Your Score...<br><br>Your Score is:${score}
-    <br>Number of correct answers:${num_correct}<br>Number of Incorrect Answers:${num_incorrect}
-    <br>Number of Unattempted Answers:${num_unattempted}`;
+    q.innerHTML=`Got Your Score...<br><br><br><br>Your Score is:${score}/${amount}
+    <br><br><br>Number of correct answers:${num_correct}<br><br>Number of Incorrect Answers:${num_incorrect}
+    <br><br>Number of Unattempted Answers:${num_unattempted}`;
     h1.innerText="Answers Submitted!";
     
     // main_div.classList.add("remove_apperance");
@@ -197,7 +169,12 @@ function show_result(){
     })
 
     let sc=document.querySelector("#options");
-    sc.innerHTML=`Your Score is:${score}`;
+    sc.innerHTML=``;
+    // let show_button=document.createElement("button");
+    // sc.appendChild(show_button);
+    // show_button.addEventListener("click",()=>{
+    //     q.innerHTML="Hello There ! Lets see your mistakes";
+    // })
 }
 
 function reset(){
@@ -211,4 +188,34 @@ function reset(){
     buttons.forEach((button)=>{
         // button.classList.remove("remove_apperance");
     })
+}
+
+function disp_ques(m){
+    h1.innerText=`Question ${m+1}`;
+    
+    if (m==0){
+        prev_button.classList.add("remove_apperance");
+    }else{
+        prev_button.classList.remove("remove_apperance");
+    }
+    if (m>amount-2){
+        next_button.classList.add("remove_apperance");
+    }else{
+        next_button.classList.remove("remove_apperance");
+    }
+    q.classList.add("addeffect");
+    option_el.classList.add("addeffect");
+    main_div.classList.add("translation");
+    setTimeout(()=>{
+        q.classList.remove("addeffect");
+        option_el.classList.remove("addeffect");
+        main_div.classList.remove("translation");
+    },1000)
+    q.innerHTML=`Q. ${ques_arr[m]}`;
+    for(let k=0;k<4;k++){
+        label[k].setAttribute("for",options[m][k]);
+        inp[k].setAttribute("id",options[m][k]);
+        label[k].innerHTML=`${k+1}-${options[m][k]}`;
+        inp[k].setAttribute("value",options[m][k]);
+    }
 }
